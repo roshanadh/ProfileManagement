@@ -2,6 +2,12 @@ package np.com.roshanadhikary.profilems.dto;
 
 public class User {
 	private int id;
+	private String username,
+		password,
+		name,
+		email,
+		address;
+	
 	public int getId() {
 		return id;
 	}
@@ -10,11 +16,6 @@ public class User {
 		this.id = id;
 	}
 
-	private String username,
-		password,
-		name,
-		email,
-		address;
 
 	public String getPassword() {
 		return password;
