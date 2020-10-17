@@ -16,8 +16,7 @@ import np.com.roshanadhikary.profilems.services.UserServiceImpl;
 
 /**
  * Servlet implementation class UserController
- */
-@WebServlet("/UserController")
+*/
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -41,27 +40,14 @@ public class UserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String username = request.getParameter("username");
-		if (username != null) {
-			User user = userService.getUserByUsername(username);
-			if (user != null) {
-				response.setContentType("text/plain");
-				PrintWriter responseWriter = response.getWriter();
-				responseWriter.write("Username: " + user.getUsername());
-				responseWriter.write("\n");
-				responseWriter.write("Name: " + user.getName());
-				responseWriter.write("\n");
-				responseWriter.write("Email: " + user.getEmail());
-				responseWriter.write("\n");
-				responseWriter.write("Address: " + user.getAddress());
-			} else {
-				response.getWriter().append("User by the username '" + username + "' not found.");
-			}
-		} else {
-			response.getWriter().append("Served at [/user]: ").append(request.getContextPath());
+		String	subPath = request.getPathInfo().substring(1);
+		switch (subPath) {
+			case "list":
+				response.getWriter().append(new UserServiceImpl().listUsers().toString());
+				break;
+			default:
+				response.getWriter().append("Served at: /" + subPath);
 		}
-		
-		
 	}
 
 	/**
