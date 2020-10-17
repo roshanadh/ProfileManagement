@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import np.com.roshanadhikary.profilems.dao.UserDaoImpl;
 import np.com.roshanadhikary.profilems.dto.User;
 
 public class UserServiceImpl implements UserService {
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> listUsers() {
 		// TODO Auto-generated method stub
-		return new ArrayList<User>(users.values());
+		return new UserDaoImpl().getUsers();
 	}
 
 	@Override
