@@ -40,16 +40,9 @@ public class UserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String	subPath = request.getPathInfo() != null
-				? request.getPathInfo().substring(1)
-				: "";
-		switch (subPath) {
-			case "list":
-				response.getWriter().append(new UserServiceImpl().listUsers().toString());
-				break;
-			default:
-				response.getWriter().append("Served at: /" + subPath);
-		}
+		RequestDispatcher rd = request.getRequestDispatcher("userList.jsp");
+		request.setAttribute("users", userService.listUsers());
+		rd.include(request, response);
 	}
 
 	/**
