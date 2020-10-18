@@ -37,9 +37,9 @@ public class UserDaoImpl implements UserDao {
 			while(rs.next()) {
 				User user = new User();
 				user.setUsername(rs.getString("username"));
-				user.setUsername(rs.getString("name"));
-				user.setUsername(rs.getString("email"));
-				user.setUsername(rs.getString("address"));
+				user.setName(rs.getString("name"));
+				user.setEmail(rs.getString("email"));
+				user.setAddress(rs.getString("address"));
 				users.add(user);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
