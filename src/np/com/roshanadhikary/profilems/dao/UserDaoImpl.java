@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import np.com.roshanadhikary.profilems.dto.User;
 import np.com.roshanadhikary.profilems.util.DbUtil;
@@ -14,14 +15,35 @@ import np.com.roshanadhikary.profilems.util.DbUtil;
 public class UserDaoImpl implements UserDao {
 	
 	@Override
-	public void addUser(User user) {
+	public User addUser(User user) throws MySQLIntegrityConstraintViolationException {
 		// TODO Auto-generated method stub
-		
+		try {
+			Connection con = DbUtil.getConnection();
+			String query = "INSERT INTO users(name, address, email, username, password) VALUES(?,?,?,?,?)";
+			PreparedStatement ps = con.prepareStatement(query);
+			
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getAddress());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getUsername());
+			ps.setBytes(5, user.getPassword());
+			
+			int rowsAffected = ps.executeUpdate();
+			System.out.println("Rows affected: " + rowsAffected);
+			
+			return user;
+		} catch (MySQLIntegrityConstraintViolationException e) {
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public User updateUser(User user) {
 		// TODO Auto-generated method stub
+		return null;
 		
 	}
 

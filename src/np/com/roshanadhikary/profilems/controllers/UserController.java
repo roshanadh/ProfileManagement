@@ -10,9 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
+import np.com.roshanadhikary.profilems.dao.UserDaoImpl;
 import np.com.roshanadhikary.profilems.dto.User;
 import np.com.roshanadhikary.profilems.services.UserService;
 import np.com.roshanadhikary.profilems.services.UserServiceImpl;
+import np.com.roshanadhikary.profilems.util.PasswordHash;
 
 /**
  * Servlet implementation class UserController
@@ -31,7 +35,7 @@ public class UserController extends HttpServlet {
      */
     public UserController() {
         super();
-        this.setUserService(new UserServiceImpl());
+        this.setUserService(new UserServiceImpl(new UserDaoImpl()));
         // TODO Auto-generated constructor stub
     }
 
@@ -49,8 +53,46 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String email = request.getParameter("email");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		try {
+			byte[] hashedPassword = PasswordHash.getHash(password);
+			
+			User user = new User();
+			user.setName(name);
+			user.setEmail(email);
+			user.setAddress(address);
+			user.setUsername(username);
+			user.setPassword(hashedPassword);
+			
+			userService.addUser(user);
+			
+			doGet(request, response);
+		} catch (MySQLIntegrityConstraintViolationException e) {
+			String errorMessage = e.getMessage();
+			
+			String violatedField = null;
+			if (errorMessage.contains("Duplicate entry '" + username + "' for key 'username"))
+				violatedField = "username";
+			if (errorMessage.contains("Duplicate entry '" + email + "' for key 'email"))
+				violatedField = "email";
+			
+			switch (violatedField) {
+				case "username":
+					System.out.println("Username " + username + " already exists!");
+					break;
+				case "email":
+					System.out.println("Email " + email + " already exists!");
+					break;
+				default: System.out.println(e.getMessage());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
