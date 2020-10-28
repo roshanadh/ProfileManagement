@@ -2,13 +2,15 @@ package np.com.roshanadhikary.profilems.dao;
 
 import java.util.List;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import np.com.roshanadhikary.profilems.dto.User;
 
 public interface UserDao {
 	
-	public void addUser(User user);
+	public User addUser(User user) throws MySQLIntegrityConstraintViolationException;
 	
-	public void updateUser(User user);
+	public User updateUser(User user);
 	
 	public List<User> getUsers();
 	
