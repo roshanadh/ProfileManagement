@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserByUsername(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return userDao.getUser(username);
 	}
 
 	@Override
@@ -46,14 +46,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public User updateUser(User user) throws MySQLIntegrityConstraintViolationException {
+		User updatedProfile = null;
+		try {
+			updatedProfile = userDao.updateUser(user);
+		} catch (MySQLIntegrityConstraintViolationException e) {
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return updatedProfile;
 	}
 
 	@Override
 	public void removeUser(User user) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean isRegistered(String username, String password) {
+		// TODO Auto-generated method stub
+		return userDao.isRegistered(username, password);
 	}
 }
