@@ -10,7 +10,9 @@ public interface UserDao {
 	
 	public User addUser(User user) throws MySQLIntegrityConstraintViolationException;
 	
-	public User updateUser(User user);
+	public boolean isRegistered(String username, String password);
+	
+	public User updateUser(User user) throws MySQLIntegrityConstraintViolationException;
 	
 	public List<User> getUsers();
 	
