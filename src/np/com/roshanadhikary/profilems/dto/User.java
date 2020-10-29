@@ -6,7 +6,7 @@ public class User {
 		name,
 		email,
 		address;	
-	private byte[] password;
+	private String password;
 	
 	public int getId() {
 		return id;
@@ -38,10 +38,10 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public byte[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(byte[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 }
