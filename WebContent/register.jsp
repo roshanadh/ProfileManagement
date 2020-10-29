@@ -11,6 +11,7 @@
 <body>
 	<form class="container" method="post" action="users">
 		<h2>Register</h2>
+		<input type="hidden" name="_method" value="post" />
 		<div class="form-group">
 			<label for="name">Name</label>
 			<input type="text" class="form-control" id="name" name="name" placeholder="Your name">
