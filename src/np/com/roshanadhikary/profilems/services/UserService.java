@@ -14,9 +14,9 @@ public interface UserService {
 	
 	public List<User> listUsers();
 	
-	public User addUser(User user) throws MySQLIntegrityConstraintViolationException;
+	public User addUser(User user) throws MySQLIntegrityConstraintViolationException, Exception;
 	
-	public User updateUser(User user) throws MySQLIntegrityConstraintViolationException;
+	public User updateUser(User user) throws MySQLIntegrityConstraintViolationException, Exception;
 	
 	public void removeUser(User user);
 }
