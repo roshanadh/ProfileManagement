@@ -1,12 +1,14 @@
 # User Profile Management
 An MVC application for user profile management
 
-## Features (to add)
-* User sign-in (session management) and registration
-* View user profiles
+## Features
+* User sign-in (with *HttpSession*)
+* User registration
 * List all users
-* Fetch a user
 * Update user profile
+
+## Features (to add)
+* View user profiles
 * Remove user profile
 
 ## Technology stack
@@ -14,3 +16,4 @@ An MVC application for user profile management
 * Java Server Pages (JSP)
 * Java Database Connectivity (JDBC)
 * MySQL
+* Bootstrap
