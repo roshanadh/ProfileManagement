@@ -37,7 +37,11 @@ public class IndexController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session.getAttribute("loggedInStatus") != null && session.getAttribute("username") != null) {
+		if (
+				session != null &&
+				session.getAttribute("loggedInStatus") != null &&
+				session.getAttribute("username") != null
+				) {
 			System.out.println("loggedInStatus was set: " + (boolean) session.getAttribute("loggedInStatus"));
 			System.out.println("username was set: " + session.getAttribute("username"));
 			
@@ -50,7 +54,7 @@ public class IndexController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
 			rd.forward(request, response);
 		} else {
-			System.out.println("loggedInStatus was not set: " + session.getAttribute("loggedInStatus"));
+			System.out.println("Session was not set");
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
 		}
