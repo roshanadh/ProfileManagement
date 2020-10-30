@@ -8,14 +8,23 @@
 	<title>Hello World!</title>
 </head>
 <body>
-	<div class="jumbotron text-center">
-		<h2>Welcome to Profile Management System!</h2>
-		<a href="register.jsp">Register</a>&nbsp;
-		<a href="users">Show profiles</a>
-	</div>
+	<jsp:include page="header.jsp" />
 	<div class="container">
-		<h2>Sign In</h2>
-		<form class="form sign-in-form" method="post" action="signin">
+		<h2 class="text-center">Sign In</h2>
+		<form class="form sign-in-form" method="post" action="login">
+			<%
+				String loginError = request.getParameter("loginError");
+	
+				if (loginError != null) {
+					if (loginError.equals("unknown-username")) {
+						out.print("<p class='alert alert-danger'>Username does not exist!</p>");
+					} else if (loginError.equals("bad-credentials")) {
+						out.print("<p class='alert alert-danger'>The credentials do not match!</p>");
+					} else {
+						out.print("<p class='alert alert-danger'>Some error occurred!</p>");
+					}
+				}
+			%>
 			<div class="form-group">
 				<label for="username">Username</label>
 				<input type="text" class="form-control" name="username" id="username" />
@@ -24,7 +33,7 @@
 				<label for="password">Password</label>
 				<input type="password" class="form-control" name="password" id="password" />
 			</div>
-			<input type="submit" class="btn btn-primary" value="Sign In" />
+			<input type="submit" class="btn btn-primary" value="Login" />
 		</form>
 	</div>
 </body>
