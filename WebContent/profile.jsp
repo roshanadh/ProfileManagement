@@ -10,9 +10,46 @@
 </head>
 <body>
 	<div class="container">
-		<h2>Welcome, ${user.name}</h2>
+		
+		<div class="d-flex justify-content-between">
+			<span class="navbar-brand">Welcome, ${ user.name }!</span>
+			<form method="get" action="logout">
+				<input type="submit" value="Logout" class="btn btn-secondary" />
+			</form>
+		</div>
+		
 		<form method="post" action="users">
+			<%
+				String updateError = request.getParameter("updateError");
+	
+			if (updateError != null) {
+				if (updateError.equals("username-exists")) {
+					out.print("<p class='alert alert-danger'>Username already exists!</p>");
+				} else if (updateError.equals("email-exists")) {
+					out.print("<p class='alert alert-danger'>Email already exists!</p>");
+				} else if (updateError.equals("constraint-violation")) {
+					out.print("<p class='alert alert-danger'>Some error occurred!</p>");
+				} else if (updateError.equals("name-cannot-be-null")) {
+					out.print("<p class='alert alert-danger'>Name cannot be empty!</p>");
+				} else if (updateError.equals("username-cannot-be-null")) {
+					out.print("<p class='alert alert-danger'>Username cannot be empty!</p>");
+				} else if (updateError.equals("email-cannot-be-null")) {
+					out.print("<p class='alert alert-danger'>Email cannot be empty!</p>");
+				} else if (updateError.equals("address-cannot-be-null")) {
+					out.print("<p class='alert alert-danger'>Address cannot be empty!</p>");
+				} else if (updateError.equals("password-cannot-be-null")) {
+					out.print("<p class='alert alert-danger'>Password cannot be empty!</p>");
+				} else if (updateError.equals("password-too-short")) {
+					out.print("<p class='alert alert-danger'>Password must be 8 characters or more!</p>");
+				} else {
+					out.print("<p class='alert alert-danger'>Some error occurred!</p>");
+				}
+			}				
+			%>
+			<!-- Include request method in the form as a hidden input field -->
 			<input type="hidden" name="_method" value="put" />
+			<!-- Include user's ID in the form as a hidden input field -->
+			<input type="hidden" name="id" value="${ user.id }" />
 			<table class="table table-striped">
 				<tr>
 					<th>Name</th>
@@ -41,14 +78,11 @@
 				<tr>
 					<th>Password</th>
 					<td>
-						<input type="text" value="${ user.password }" class="form-control" id="password" name="password" />
+						<input type="password" value="${ user.password }" class="form-control" id="password" name="password" />
 					</td>
 				</tr>
 			</table>
 			<input type="submit" class="btn btn-primary" id="updateProfileBtn" value="Update Profile" />
-		</form>
-		<form method="get" action="signout">
-			<input type="submit" value="Sign Out" class="btn btn-secondary" />
 		</form>
 	</div>
 </body>
