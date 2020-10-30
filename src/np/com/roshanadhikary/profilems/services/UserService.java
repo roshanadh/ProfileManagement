@@ -10,11 +10,13 @@ public interface UserService {
 	
 	public User getUserByUsername(String username);
 	
+	public boolean isRegistered(String username, String password);
+	
 	public List<User> listUsers();
 	
-	public User addUser(User user) throws MySQLIntegrityConstraintViolationException;
+	public User addUser(User user) throws MySQLIntegrityConstraintViolationException, Exception;
 	
-	public User updateUser(User user);
+	public User updateUser(User user) throws MySQLIntegrityConstraintViolationException, Exception;
 	
 	public void removeUser(User user);
 }

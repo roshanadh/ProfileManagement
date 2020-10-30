@@ -10,8 +10,9 @@
 	<title>Profiles</title>
 </head>
 <body>
+	<jsp:include page="header.jsp" />
 	<div class="container">
-		<h2>Profiles</h2>
+		<h2 class="text-center">Profiles</h2>
 		<c:if test="${ !users.isEmpty() }">
 			<table class="table table-striped">
 				<tr>

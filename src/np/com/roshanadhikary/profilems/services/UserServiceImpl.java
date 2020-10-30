@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserByUsername(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return userDao.getUser(username);
 	}
 
 	@Override
@@ -32,28 +32,68 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User addUser(User user) throws MySQLIntegrityConstraintViolationException {
+	public User addUser(User user) throws MySQLIntegrityConstraintViolationException, Exception {
 		User addedUser = null;
 		try {
+			if (user.getName().trim().equals("")) {
+				throw new Exception("name-cannot-be-null");
+			} if (user.getUsername().equals("")) {
+				throw new Exception("username-cannot-be-null");
+			} if (user.getEmail().trim().equals("")) {
+				throw new Exception("email-cannot-be-null");
+			} if (user.getAddress().trim().equals("")) {
+				throw new Exception("address-cannot-be-null");
+			} if (user.getPassword().equals("")) {
+				throw new Exception("password-cannot-be-null");
+			} if (user.getPassword().length() < 8) {
+				throw new Exception("password-too-short");
+			}
+			
 			addedUser = userDao.addUser(user);
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			throw e;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 		return addedUser;
 	}
 
 	@Override
-	public User updateUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public User updateUser(User user) throws MySQLIntegrityConstraintViolationException, Exception {
+		User updatedProfile = null;
+		try {
+			if (user.getName().trim().equals("")) {
+				throw new Exception("name-cannot-be-null");
+			} if (user.getUsername().equals("")) {
+				throw new Exception("username-cannot-be-null");
+			} if (user.getEmail().trim().equals("")) {
+				throw new Exception("email-cannot-be-null");
+			} if (user.getAddress().trim().equals("")) {
+				throw new Exception("address-cannot-be-null");
+			} if (user.getPassword().equals("")) {
+				throw new Exception("password-cannot-be-null");
+			} if (user.getPassword().length() < 8) {
+				throw new Exception("password-too-short");
+			}
+			
+			updatedProfile = userDao.updateUser(user);
+		} catch (MySQLIntegrityConstraintViolationException e) {
+			throw e;
+		} catch (Exception e) {
+			throw e;
+		}
+		return updatedProfile;
 	}
 
 	@Override
 	public void removeUser(User user) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean isRegistered(String username, String password) {
+		// TODO Auto-generated method stub
+		return userDao.isRegistered(username, password);
 	}
 }
