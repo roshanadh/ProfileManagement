@@ -18,5 +18,5 @@ public interface UserService {
 	
 	public User updateUser(User user) throws MySQLIntegrityConstraintViolationException, Exception;
 	
-	public void removeUser(User user);
+	public void removeUser(String username, String password) throws Exception;
 }
