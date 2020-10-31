@@ -174,14 +174,26 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void removeUser(String username) {
-		// TODO Auto-generated method stub
+	public void removeUser(String username) throws Exception {
+		try {
+			if (getUser(username) == null) {
+				throw new Exception("unknown-username");
+			}
+			
+			Connection con = DbUtil.getConnection();
+			String query = "DELETE FROM users WHERE username = ?";
+			PreparedStatement ps = con.prepareStatement(query);
+			
+			ps.setString(1, username);
+			int rowsAffected = ps.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public boolean isRegistered(String username, String password) {
-		// TODO Auto-generated method stub
 		boolean isRegistered = false;
 		try {
 			Connection con = DbUtil.getConnection();
@@ -195,7 +207,6 @@ public class UserDaoImpl implements UserDao {
 			
 			isRegistered = rs.next();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return isRegistered;

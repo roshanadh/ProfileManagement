@@ -49,6 +49,9 @@ public class UserServiceImpl implements UserService {
 				throw new Exception("password-too-short");
 			}
 			
+			String hashedPassword = PasswordHash.getHash(user.getPassword());
+			user.setPassword(hashedPassword);
+			
 			addedUser = userDao.addUser(user);
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			throw e;
@@ -76,6 +79,9 @@ public class UserServiceImpl implements UserService {
 				throw new Exception("password-too-short");
 			}
 			
+			String hashedPassword = PasswordHash.getHash(user.getPassword());
+			user.setPassword(hashedPassword);
+			
 			updatedProfile = userDao.updateUser(user);
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			throw e;
@@ -86,14 +92,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void removeUser(User user) {
-		// TODO Auto-generated method stub
-		
+	public void removeUser(String username, String password) throws Exception {
+		try {
+			String hashedPassword = PasswordHash.getHash(password);
+			if (!userDao.isRegistered(username, hashedPassword)) {
+				throw new Exception("bad-credentials");
+			}
+			
+			userDao.removeUser(username);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	@Override
 	public boolean isRegistered(String username, String password) {
-		// TODO Auto-generated method stub
-		return userDao.isRegistered(username, password);
+		String hashedPassword = PasswordHash.getHash(password);
+		System.out.println(password);
+		System.out.println(hashedPassword);
+		return userDao.isRegistered(username, hashedPassword);
 	}
 }

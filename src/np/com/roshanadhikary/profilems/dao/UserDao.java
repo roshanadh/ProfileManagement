@@ -20,6 +20,6 @@ public interface UserDao {
 	
 	public User getUser(int id);
 	
-	public void removeUser(String username);
+	public void removeUser(String username) throws Exception;
 	
 }

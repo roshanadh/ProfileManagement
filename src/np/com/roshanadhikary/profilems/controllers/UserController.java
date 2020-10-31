@@ -154,6 +154,8 @@ public class UserController extends HttpServlet {
 		} else if (requestMethod.equals("put")) {
 			System.out.println("inside put");
 			doPut(request, response);
+		} else if (requestMethod.equals("delete")) {
+			doDelete(request, response);
 		}
 	}
 
@@ -268,7 +270,37 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String username;
+		String password;
+		
+		RequestDispatcher rd;
+		HttpSession session;
+		try {
+			username = request.getParameter("username");
+			password = request.getParameter("password");
+			userService.removeUser(username, password);
+			
+			// invalidate session
+			session =request.getSession(false);
+			session.invalidate();
+			
+			rd = request.getRequestDispatcher("index.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			String[] errorMessages = new String[] {
+					"unknown-username",
+					"bad-credentials"
+			};
+			
+			List<String> errorList = Arrays.asList(errorMessages);
+			if (errorList.contains(e.getMessage())) {
+				rd = request.getRequestDispatcher("profile.jsp?deleteError=" + e.getMessage());
+			} else {
+				e.printStackTrace();
+				rd = request.getRequestDispatcher("profile.jsp?deleteError=server-error");
+			}
+			rd.forward(request, response);
+		}
 	}
 
 }

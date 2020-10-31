@@ -4,23 +4,18 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Base64;
 
 public class PasswordHash {
 	
-	public static byte[] getHash(String password) {
+	public static String getHash(String password) {
 		byte[] hashedPassword = null;
 		try {
-			SecureRandom random = new SecureRandom();
-			byte[] salt = new byte[16];
-			random.nextBytes(salt);
-			
 			MessageDigest md = MessageDigest.getInstance("SHA-512");
-			md.update(salt);
-			
 			hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return hashedPassword;
+		return Base64.getEncoder().encodeToString(hashedPassword);
 	}
 }
