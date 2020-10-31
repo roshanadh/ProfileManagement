@@ -6,9 +6,9 @@ An MVC application for user profile management
 * User registration
 * List all users
 * Update user profile
+* Search for users
 
 ## Features (to add)
-* View user profiles
 * Remove user profile
 
 ## Technology stack
