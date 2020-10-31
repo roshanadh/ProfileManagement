@@ -9,14 +9,18 @@
 	<title>Home | Profile Management System</title>
 </head>
 <body>
-	<div class="container">
-		
-		<div class="d-flex justify-content-between">
+	<div class="container ">
+	
+		<nav class="navbar navbar-light bg-light justify-content-between mt-sm-2">
 			<span class="navbar-brand">Welcome, ${ user.name }!</span>
 			<form method="get" action="logout">
-				<input type="submit" value="Logout" class="btn btn-secondary" />
+				<input type="submit" value="Logout" class="btn btn-danger" />
 			</form>
-		</div>
+			<form class="form-inline" method="get" action="search">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" name="username" />
+				<input type="submit" value="Search" class="btn btn-primary" />
+			</form>
+		</nav>
 		
 		<form method="post" action="users">
 			<%
