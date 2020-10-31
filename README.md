@@ -6,14 +6,13 @@ An MVC application for user profile management
 * User registration
 * List all users
 * Update user profile
+* Delete user profile
 * Search for users
-
-## Features (to add)
-* Remove user profile
 
 ## Technology stack
 * Java Servlet
-* Java Server Pages (JSP)
+* JavaServer Pages (JSP)
+* JavaServer Pages Standard Tag Library (JSTL)
 * Java Database Connectivity (JDBC)
 * MySQL
 * Bootstrap
