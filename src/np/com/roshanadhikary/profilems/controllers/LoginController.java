@@ -45,7 +45,7 @@ public class LoginController extends HttpServlet {
 		if (servletPath.equals("/logout")) {
 			// use for signing out a user
 			session = request.getSession(false);
-			session.invalidate();
+			if (session != null) session.invalidate();
 			
 			rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
