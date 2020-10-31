@@ -10,7 +10,7 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<div class="container">
-		<h2 class="text-center">Sign In</h2>
+		<h2 class="text-center">Access your profile</h2>
 		<form class="form sign-in-form" method="post" action="login">
 			<%
 				String loginError = request.getParameter("loginError");
