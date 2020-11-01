@@ -7,10 +7,25 @@ import java.sql.Connection;
 
 public class DbUtil {
 	private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
-	private static final String DATABASE_NAME = "profilems";
-	private static final String URL = "jdbc:mysql://localhost:3306/";
-	private static final String USERNAME = "root";
-	private static final String PASSWORD = "";
+	private static final String DATABASE_NAME =
+			System.getenv("DATABASE_NAME") == null
+			? "profilems"
+			: System.getenv("DATABASE_NAME");
+				
+	private static final String URL =
+			System.getenv("JDBC_URL") == null
+			? "jdbc:mysql://localhost:3306/"
+			: System.getenv("JDBC_URL");
+	
+	private static final String USERNAME =
+			System.getenv("JDBC_USER") == null
+			? "root"
+			: System.getenv("JDBC_USER");
+	
+	private static final String PASSWORD = 
+			System.getenv("JDBC_PASS") == null
+			? ""
+			: System.getenv("JDBC_PASS");
 	
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 		Class.forName(DRIVER_NAME);
