@@ -31,23 +31,23 @@ Also, make sure you've installed `docker` and  `docker-compose` on your machine.
 ## Deployment
 
 * Clone the repository to your machine and change the working directory:
-```sh
-git clone git@github.com:roshanadh/ProfileManagement && cd ProfileManagement
-```
+    ```sh
+    git clone git@github.com:roshanadh/ProfileManagement && cd ProfileManagement
+    ```
 
 * Start the services:
-```sh
-docker-compose up
-```
+    ```sh
+    docker-compose up
+    ```
 
-This may take some time, especially to start the `mysql` service and initialize the database.
-Wait for confirmation of service start in the form of logs:
-```
-2020-11-01T11:57:10.252629Z 0 [Note] mysqld: ready for connections.
-Version: '5.7.32'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server (GPL)
-```
+    This may take some time, especially to start the `mysql` service and initialize the database.
+    Wait for confirmation of service start in the form of logs:
+    ```
+    2020-11-01T11:57:10.252629Z 0 [Note] mysqld: ready for connections.
+    Version: '5.7.32'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server (GPL)
+    ```
 
 * Open up the project on your browser:
-```sh
-localhost:8080/ProfileManagement
-```
+    ```sh
+    localhost:8080/ProfileManagement
+    ```
