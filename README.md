@@ -1,5 +1,5 @@
 # User Profile Management
-An MVC application for user profile management
+An MVC application for user profile management that performs CRUD operations on a MySQL database.
 
 ## Features
 * User sign-in (with *HttpSession*)
