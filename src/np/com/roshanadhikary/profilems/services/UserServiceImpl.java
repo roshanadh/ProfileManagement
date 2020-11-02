@@ -94,8 +94,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void removeUser(String username, String password) throws Exception {
 		try {
-			String hashedPassword = PasswordHash.getHash(password);
-			if (!userDao.isRegistered(username, hashedPassword)) {
+			// no need to hash the password as the incoming password is ...
+			// ... already hashed
+			if (!userDao.isRegistered(username, password)) {
 				throw new Exception("bad-credentials");
 			}
 			
