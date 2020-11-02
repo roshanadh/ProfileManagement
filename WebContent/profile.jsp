@@ -49,6 +49,8 @@
 			<%
 				String updateError = request.getParameter("updateError");
 				String deleteError = request.getParameter("deleteError");
+				
+				String updateStatus = request.getParameter("updateStatus");
 	
 				if (updateError != null) {
 					if (updateError.equals("username-exists")) {
@@ -76,13 +78,17 @@
 					
 				if (deleteError != null) {
 					if (deleteError.equals("unknown-username")) {
-						out.print("<p class='alert alert-danger'>Username doesn't exist!</p>");
+						out.print("<p class='alert alert-danger'>The credentials do not match. Please refresh the page first!</p>");
 					} else if (deleteError.equals("bad-credentials")) {
 						out.print("<p class='alert alert-danger'>The credentials do not match. Please refresh the page first!</p>");
 					} else {
 						out.print("<p class='alert alert-danger'>Some error occurred!</p>");
 					}
-				}				
+				}
+				
+				if (updateStatus != null && updateStatus.equals("true")) {
+					out.print("<p class='alert alert-success'>Your profile has been updated!</p>");
+				}
 			%>
 			<!-- Include request method in the form as a hidden input field -->
 			<input type="hidden" name="_method" value="put" />
