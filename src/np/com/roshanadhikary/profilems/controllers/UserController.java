@@ -204,7 +204,7 @@ public class UserController extends HttpServlet {
 			
 			request.setAttribute("user", updatedProfile);
 			
-			rd = request.getRequestDispatcher("profile.jsp");
+			rd = request.getRequestDispatcher("profile.jsp?updateStatus=true");
 			rd.forward(request, response);
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			String errorMessage = e.getMessage();
